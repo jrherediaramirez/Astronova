@@ -1,16 +1,21 @@
-import { useState, useCallback } from 'react';
-import { useAuth } from '../../auth/AuthContext' // Adjust path as needed
+import { useState, useCallback, useEffect } from 'react';
+import { useAuth } from '../../auth/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import MenuButton from '../../components/MainMenu/MenuButton'
+import MenuButton from '../../components/MainMenu/MenuButton';
 import LogoutButton from '../../components/MainMenu/LogoutButton';
+import AudioControls from '../../audio/AudioControls'; // Import AudioControls
 import './MainMenu.css';
 import StarfieldBackground from '../../components/background/StarfieldBackground';
-import Game from '../GamePage/GamePage';
 
 function MainMenu() {
   const [hoveredButton, setHoveredButton] = useState(null);
   const { userData, logout, loading } = useAuth();
   const navigate = useNavigate();
+  
+  // Animation control states
+  const [floatSpeed, setFloatSpeed] = useState(3); // Default speed (seconds)
+  const [floatHeight, setFloatHeight] = useState(15); // Default height (pixels)
+  const [showControls, setShowControls] = useState(false);
 
   const username = userData ? userData.firstName : "User";
 
@@ -44,6 +49,17 @@ function MainMenu() {
     }
   }, [logout]);
 
+  // Toggle animation controls visibility
+  const toggleControls = () => {
+    setShowControls(!showControls);
+  };
+
+  // Animation style with dynamic variables
+  const characterStyle = {
+    '--float-speed': `${floatSpeed}s`,
+    '--float-height': `${floatHeight}px`
+  };
+
   if (loading) {
     return <div className="loading-state">Loading...</div>;
   }
@@ -56,7 +72,7 @@ function MainMenu() {
         speedFactor={0.02} 
         opacity={0.8}
         interactive={true}
-        shootingStarFrequency={0.0008} // Adjust for more/fewer shooting stars
+        shootingStarFrequency={0.0008}
       />
       
       {/* Profile Button - Top Right */}
@@ -71,6 +87,9 @@ function MainMenu() {
 
       {/* Logout Button */}
       <LogoutButton onClick={handleLogout} />
+      
+      {/* Audio Controls */}
+      <AudioControls />
 
       {/* Main Content - Center */}
       <div className="main-content">
@@ -80,11 +99,46 @@ function MainMenu() {
           "You're not behind. You're just between planets." <span style={{ fontWeight: '700' }}>— Astronova</span>
         </p>
 
-        <img
-          src="/main-character.png"
-          alt="Astronova Character"
-          className="main-character"
-        />
+        <div className="character-container">
+          <img
+            src="/main-character.png"
+            alt="Astronova Character"
+            className="main-character floating"
+            style={characterStyle}
+            onClick={toggleControls}
+          />
+          
+          {/* Animation controls - toggleable */}
+          {showControls && (
+            <div className="animation-controls">
+              <div className="control-group">
+                <label>Floating Speed</label>
+                <input
+                  type="range"
+                  min="1"
+                  max="10"
+                  step="0.5"
+                  value={floatSpeed}
+                  onChange={(e) => setFloatSpeed(parseFloat(e.target.value))}
+                />
+                <span>{floatSpeed}s</span>
+              </div>
+              
+              <div className="control-group">
+                <label>Floating Height</label>
+                <input
+                  type="range"
+                  min="5"
+                  max="30"
+                  step="1"
+                  value={floatHeight}
+                  onChange={(e) => setFloatHeight(parseInt(e.target.value))}
+                />
+                <span>{floatHeight}px</span>
+              </div>
+            </div>
+          )}
+        </div>
 
         <img
           src="/start-button.png"
