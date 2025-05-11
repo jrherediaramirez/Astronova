@@ -5,6 +5,7 @@ import MenuButton from '../../components/MainMenu/MenuButton'
 import LogoutButton from '../../components/MainMenu/LogoutButton';
 import './MainMenu.css';
 import StarfieldBackground from '../../components/background/StarfieldBackground';
+import Game from '../GamePage/GamePage';
 
 function MainMenu() {
   const [hoveredButton, setHoveredButton] = useState(null);

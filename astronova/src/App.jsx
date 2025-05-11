@@ -5,7 +5,7 @@ import SignUpPage from './pages/SignUpPage'; // Adjust path
 import ProfilePage from './pages/ProfilePage'; // Import new page
 import SettingsPage from './pages/SettingsPage'; // Import new page
 import LeaderboardPage from './pages/LeaderboardPage'; // Import new page
-import GamePage from './pages/GamePage'; // Import new page (for Start)
+import GamePage from './pages/GamePage/GamePage'; // Import new page (for Start)
 import { useAuth } from './auth/AuthContext'; // Adjust path
 
 function ProtectedRoute({ children }) {

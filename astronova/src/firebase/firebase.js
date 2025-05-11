@@ -2,6 +2,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore }    from "firebase/firestore";
 import { getAuth }         from "firebase/auth";
+import { collection, addDoc, getDocs, query, where, serverTimestamp, doc, updateDoc } from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey:           import.meta.env.VITE_FIREBASE_API_KEY,
