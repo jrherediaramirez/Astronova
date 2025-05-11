@@ -4,15 +4,15 @@ import './StarfieldBackground.css';
 const StarfieldBackground = ({ 
   particleCount = 150, 
   speedFactor = 0.03,
-  interactive = true,
+  //interactive = false,
   opacity = 0.7,
-  shootingStarFrequency = 0.0001,
+  shootingStarFrequency = 0.00001,
   brushEffectIntensity = 0.8, // 0-1 how strong the brush effect should be
   noiseOpacity = 0.08, // 0-1 opacity of noise texture
 }) => {
   const canvasRef = useRef(null);
   const noiseCanvasRef = useRef(null); // For the noise texture
-  const mousePosition = useRef({ x: 0, y: 0 });
+  //const mousePosition = useRef({ x: 0, y: 0 });
   
   // Create noise texture once
   useEffect(() => {
@@ -407,7 +407,7 @@ const StarfieldBackground = ({
         particle.y += particle.speedY;
         
         // Interactive - particles drift toward mouse (only for non-background stars)
-        if (interactive && particle.type !== 'background') {
+        /* if (interactive && particle.type !== 'background') {
           const dx = mousePosition.current.x - particle.x;
           const dy = mousePosition.current.y - particle.y;
           const distance = Math.sqrt(dx * dx + dy * dy);
@@ -420,6 +420,8 @@ const StarfieldBackground = ({
             particle.rotation += 0.01;
           }
         }
+
+        */
         
         // Edge wrapping
         const buffer = particle.size * 2;
@@ -603,12 +605,15 @@ const StarfieldBackground = ({
     };
     
     // Track mouse position
+    /*
     const handleMouseMove = (e) => {
       mousePosition.current = {
         x: e.clientX,
         y: e.clientY
       };
     };
+
+    */
     
     // Initialize everything
     setCanvasSize();
@@ -620,20 +625,27 @@ const StarfieldBackground = ({
       setCanvasSize();
       initParticles();
     });
+
+    /*
     
     if (interactive) {
       window.addEventListener('mousemove', handleMouseMove);
     }
+
+    */
     
     // Cleanup
     return () => {
       cancelAnimationFrame(animationFrameId);
       window.removeEventListener('resize', setCanvasSize);
+
+      /*
       if (interactive) {
         window.removeEventListener('mousemove', handleMouseMove);
       }
+        */
     };
-  }, [particleCount, speedFactor, interactive, opacity, shootingStarFrequency, brushEffectIntensity, noiseOpacity]);
+  }, [particleCount, speedFactor, opacity, shootingStarFrequency, brushEffectIntensity, noiseOpacity]);
   
   return <canvas ref={canvasRef} className="starfield-canvas" />;
 };
