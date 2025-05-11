@@ -6,5 +6,7 @@
   height: 100%;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(to bottom, #022235, #011626, #042033);
+  background: linear-gradient(to bottom, #06202c, #06202c, #06202c);
+  /* Increase contrast for the painted look */
+  filter: contrast(1.05);
 }
