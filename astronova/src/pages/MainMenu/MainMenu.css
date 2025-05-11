@@ -1,9 +1,5 @@
 /* Main Menu Container */
 .menu-container {
-  background-image: linear-gradient(to bottom, #0a0d20, #1a1b2f, #0c0c1d);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
   width: 100%;
   height: 100vh;
   position: relative;
@@ -14,7 +10,7 @@
   overflow: hidden;
 }
 
-/* Menu Button Base Style */
+/* Keep the rest of your existing CSS */
 .menu-button {
   width: 80px;
   height: 80px;
@@ -63,6 +59,7 @@
   font-size: 16px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
   transition: background-color 0.3s ease;
+  z-index: 1;
 }
 
 .logout-button:hover {
@@ -78,6 +75,8 @@
   padding: 20px;
   max-width: 90%;
   box-sizing: border-box;
+  position: relative;
+  z-index: 1; /* Above the starfield */
 }
 
 .main-title {

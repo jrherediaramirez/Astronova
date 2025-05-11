@@ -49,13 +49,16 @@ function MainMenu() {
 
   return (
     <div className="menu-container">
-      {/* Profile Button - Top Right */}
+      {/* Enhanced Starfield Background */}
       <StarfieldBackground 
-        particleCount={150} 
-        speedFactor={0.03} 
-        opacity={0.7}
+        particleCount={200} 
+        speedFactor={0.02} 
+        opacity={0.8}
         interactive={true}
+        shootingStarFrequency={0.0008} // Adjust for more/fewer shooting stars
       />
+      
+      {/* Profile Button - Top Right */}
       <MenuButton
         src="/profile-button.png"
         alt="Profile"
