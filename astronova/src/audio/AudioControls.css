@@ -1,9 +1,9 @@
-/* src/components/AudioControls/AudioControls.css */
+/* src/audio/AudioControls.css */
 .audio-controls {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 1000; /* Make sure it's above other elements */
+  z-index: 1000;
   display: flex;
   align-items: center;
 }
@@ -11,85 +11,101 @@
 .audio-toggle-button {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background-color: rgba(8, 32, 46, 0.8);
-  border: 2px solid rgba(112, 248, 255, 0.7);
-  color: white;
-  font-size: 18px;
+  background: none;
+  border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  transition: all 0.2s ease;
+  transition: transform 0.2s ease;
+  padding: 0;
 }
 
 .audio-toggle-button:hover {
-  transform: scale(1.1);
-  background-color: rgba(8, 32, 46, 0.9);
-  border-color: rgba(112, 248, 255, 1);
+  transform: scale(1.05);
 }
 
-.audio-toggle-button.playing {
-  background-color: rgba(29, 102, 139, 0.9);
+.volume-icon {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
 }
 
 .volume-slider-container {
-  background-color: rgba(8, 32, 46, 0.85);
-  border-radius: 20px;
-  padding: 10px 15px;
-  margin-right: 10px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  border: 1px solid rgba(112, 248, 255, 0.3);
-  animation: fadeIn 0.3s ease;
+  position: absolute;
+  bottom: 50px;
+  right: 6px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
 }
 
-.volume-slider {
-  width: 100px;
-  margin-right: 10px;
-  -webkit-appearance: none;
-  height: 4px;
+.audio-controls:hover .volume-slider-container {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.volume-bar-container {
+  position: relative;
+  width: 24px;
+  height: 100px;
+  cursor: pointer;
+}
+
+.volume-bar-background {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  height: 100%;
+  background-color: #B7B7B7;
+  border-radius: 4px;
+}
+
+.volume-bar-fill {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 8px;
+  background-color: #1D668B;
+  border-radius: 4px;
+  transition: height 0.1s ease;
+}
+
+.volume-thumb {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
   background: #1D668B;
-  border-radius: 2px;
+  cursor: pointer;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  transition: bottom 0.1s ease;
 }
 
-.volume-slider::-webkit-slider-thumb {
+.volume-range-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+  transform: rotate(180deg);
+  -webkit-appearance: none;
+}
+
+.volume-range-input::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background: #70f8ff;
+  background: transparent;
   cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.volume-slider::-moz-range-thumb {
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: #70f8ff;
-  cursor: pointer;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.volume-close-button {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  background: rgba(255, 82, 82, 0.8);
-  color: white;
-  border: none;
-  font-size: 10px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateX(20px); }
-  to { opacity: 1; transform: translateX(0); }
 }
